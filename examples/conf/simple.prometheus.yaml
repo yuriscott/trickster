@@ -14,9 +14,9 @@ frontend:
   listen_port: 9090
 
 backends:
-  default:
+  victoriametrics:
     # update FQDN and Port to work in your environment
-    origin_url: 'http://prometheus:9090'
+    origin_url: 'http://localhost:18481/select/0/prometheus'
     provider: 'prometheus'
 
 metrics:

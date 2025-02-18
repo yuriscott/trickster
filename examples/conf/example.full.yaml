@@ -13,34 +13,34 @@
 # Copyright 2018 The Trickster Authors
 #
 
-# main:
-#   # instance_id allows you to run multiple Trickster processes on the same host and log to separate files
-#   # Useful for baremetal, not so much for elastic deployments, so only uncomment if you really need it
-#   # default is 0, which means ignored
-#   instance_id: 0
+ main:
+   # instance_id allows you to run multiple Trickster processes on the same host and log to separate files
+   # Useful for baremetal, not so much for elastic deployments, so only uncomment if you really need it
+   # default is 0, which means ignored
+   instance_id: 0
 
-#   # config_handler_path provides the HTTP path to view a read-only printout of the running configuration
-#   # which can be reached at http://your-trickster-endpoint:port/$config_handler_path
-#   # default is /trickster/config
-#   config_handler_path: /trickster/config
+   # config_handler_path provides the HTTP path to view a read-only printout of the running configuration
+   # which can be reached at http://your-trickster-endpoint:port/$config_handler_path
+   # default is /trickster/config
+   config_handler_path: /trickster/config
 
-#   # ping_handler_path provides the HTTP path you will use to perform an uptime health check against Trickster
-#   # which can be reached at http://your-trickster-endpoint:port/$ping_handler_path
-#   # default is /trickster/ping
-#   ping_handler_path: /trickster/ping
+   # ping_handler_path provides the HTTP path you will use to perform an uptime health check against Trickster
+   # which can be reached at http://your-trickster-endpoint:port/$ping_handler_path
+   # default is /trickster/ping
+   ping_handler_path: /trickster/ping
 
-#   # health_handler_path provides the HTTP path prefix you will use to perform an uptime health check against
-#   # configured Trickster backends via http://trickster/$health_handler_path/$backend_name
-#   # default is /trickster/health. Set to empty string to fully disable upstream health checking
-#   health_handler_path: /trickster/health
+   # health_handler_path provides the HTTP path prefix you will use to perform an uptime health check against
+   # configured Trickster backends via http://trickster/$health_handler_path/$backend_name
+   # default is /trickster/health. Set to empty string to fully disable upstream health checking
+   health_handler_path: /trickster/health
 
-#   # pprof_server provides the name of the http listener that will host the pprof debugging routes
-#   # Options are: "metrics", "reload", "both", or "off"; default is both
-#   pprof_server: both
+   # pprof_server provides the name of the http listener that will host the pprof debugging routes
+   # Options are: "metrics", "reload", "both", or "off"; default is both
+   pprof_server: both
 
-#   # server_name provides the name of this server instance, used to self-identfy in Via and other Forwarding headers
-#   # server_name defaults to os.Hostname() when left blank
-#   server_name: ''
+   # server_name provides the name of this server instance, used to self-identfy in Via and other Forwarding headers
+   # server_name defaults to os.Hostname() when left blank
+   server_name: ''
 
 # Configuration options for the Trickster Frontend
 frontend:
@@ -109,13 +109,13 @@ frontend:
 #       # default is [redis:6379]
 #       endpoints:
 #       - redis:6379
-      
+
 #       ## Supported by Redis Sentinel #######################################
 #       ## These configurations are ignored by Redis (standard) and Redis Cluster
 #       ##
 #       # sentinel_master should be set when using Redis Sentinel to indicate the Master Node
 #       sentinel_master: ''
-      
+
 #       ## Supported by all Redis Client Types ###############################
 #       ## See the go-redis documentation at https://github.com/go-redis/redis/blob/master/options.go
 #       ## for more information on tuning these settings
@@ -187,7 +187,7 @@ frontend:
 #     byterange_chunk_size: 4096
 
 #   # Example of a second cache, sans comments, that backend configs below could use with: cache_name: bbolt_example
-  
+
 #   bolt_example:
 #     provider: bbolt
 #     bbolt:
@@ -378,7 +378,7 @@ backends:
 #     #
 #     # Each backend provider implements their own defaults for health checking
 #     # which can be overridden per backend configuration. See /docs/health.md for more information
-#     healthcheck: 
+#     healthcheck:
 
 #       ## Crafting a Heatlh Check
 
@@ -481,19 +481,19 @@ backends:
 #         # TLS Backend Configs
 #         # These settings configure how Trickster will behave as a client when communicating with
 #         # this backend over TLS
-        
+
 #         # if insecure_skip_verify is true, Trickster will trust the origins certificate without any verification
 #         # default is false
 #         insecure_skip_verify: false
-        
+
 #         # certificate_authority_paths provides a list of additional certificate authorities to be used to trust an upstream origin
 #         # in addition to Operating System CAs.  default is an empty list, which insructs the Trickster to use only the OS List
 #         certificate_authority_paths: [ ../../testdata/test.rootca.pem ]
-        
+
 #         # client_cert_path provides the path to a client certificate for Trickster to use when authenticating with an upstream server
 #         # empty string '' by default
 #         client_cert_path: /path/to/my/client/cert.pem
-        
+
 #         # client_key_path provides the path to a client key for Trickster to use when authenticating with an upstream server
 #         # empty string '' by default
 #         client_key_path: /path/to/my/client/key.pem
@@ -562,7 +562,7 @@ backends:
 #     input_type: string
 #     input_encoding: base64
 #     input_index: 1               # split the header value into zero-indexed parts at spaces, use part 1
-#     input_delimiter:  
+#     input_delimiter:
 #     operation: prefix              # check the input value matches any of the defined cases:
 #     next_route: reader-cluster # by default, route to reader-cluster backend (would need to be defined)
 # #  Other available rule configs that are not pertinent to this example:
@@ -635,7 +635,7 @@ backends:
 #     # omit_tags is a list of tag names that, while normally added by Trickster to various spans,
 #     # are omitted for spans produced by this tracer. The default setting is empty list.
 #     omit_tags: []
-    
+
 #       # tags will append these tags/attributes to each trace that is recorded
 #       # only string key/value tags are supported. numeric values, etc are not.
 #       # For Jaeger, these key/values are added to the "Process" section
@@ -675,7 +675,7 @@ backends:
 # # Configuration Options for Config Reloading
 # reloading:
 #   # listen_port defines the port where Tricksters config reload server listens
-#   # 8484 is the default 
+#   # 8484 is the default
 #   listen_port: 8484
 #   # listen_address defines the ip where Tricksters config reload server listens
 #   # empty by default, listening on all interfaces

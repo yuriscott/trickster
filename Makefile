@@ -12,7 +12,7 @@
 # limitations under the License.
 
 DEFAULT: build
-
+IMG ?= ict-harbor-pro-registry-huabei2.crs.ctyun.cn/ict/trickster:v2.0.0
 PROJECT_DIR    := $(shell pwd)
 GO             ?= go
 GOFMT          ?= $(GO)fmt
@@ -127,6 +127,17 @@ docker-release:
 	docker build --build-arg IMAGE_ARCH=amd64 --build-arg GOARCH=amd64 -f ./deploy/Dockerfile -t trickstercache/trickster:$(IMAGE_TAG) .
 # linux arm image
 	docker build --build-arg IMAGE_ARCH=arm64v8 --build-arg GOARCH=arm64 -f ./deploy/Dockerfile -t trickstercache/trickster:arm64v8-$(IMAGE_TAG) .
+
+PLATFORMS ?= linux/arm64,linux/amd64,linux/s390x,linux/ppc64le
+.PHONY: docker-buildx
+docker-buildx:
+	# copy existing Dockerfile and insert --platform=${BUILDPLATFORM} into Dockerfile.cross, and preserve the original Dockerfile
+	sed -e '1 s/\(^FROM\)/FROM --platform=\$$\{BUILDPLATFORM\}/; t' -e ' 1,// s//FROM --platform=\$$\{BUILDPLATFORM\}/' Dockerfile > Dockerfile.cross
+	- docker buildx create --name trickster-builder --use --platform ${PLATFORMS}
+	docker buildx use trickster-builder
+	- docker buildx build --push --platform=$(PLATFORMS) --tag ${IMG} -f Dockerfile.cross .
+	- docker buildx rm trickster-builder
+	rm Dockerfile.cross
 
 .PHONY: style
 style:
